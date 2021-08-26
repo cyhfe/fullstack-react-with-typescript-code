@@ -1,0 +1,66 @@
+import { gql } from "apollo-boost"
+import React, { useState } from "react"
+import { useMutation } from "react-apollo-hooks"
+import { Field } from "../../../step-3/src/Field"
+import { Form, FormValues } from "../../../step-3/src/Form"
+import { Panel } from "../../../step-3/src/Panel"
+import { NewRepositorySuccess } from "../../../step-3/src/Repositories/NewRepositorySuccess"
+import { createNewRepository_createRepository_repository, createNewRepository, createNewRepositoryVariables } from "../../../step-3/src/Repositories/types/createNewRepository"
+import { RepositoryVisibility } from "../../../step-3/src/types/graphql-global-types"
+
+const CREATE_REPOSITORY = gql`
+  mutation createNewRepository(
+    $name: String!
+    $description: String!
+    $visibility: RepositoryVisibility!
+  ) {
+    createRepository(
+      input: {
+        name: $name
+        description: $description
+        visibility: $visibility
+      }
+    ) {
+      repository {
+        name
+        url
+        id
+      }
+    }
+  }
+`
+
+export const NewRepository = () => {
+  const onSubmit = async (values: FormValues) => {
+    const [name, description] = values.textbox
+  }
+
+  return (
+    <Panel top="25%" left="center" height={10}>
+      <blessed-text
+        left="center"
+        bg="white"
+        fg="black"
+        content="New repository"
+      />
+      <Form onSubmit={onSubmit}>
+        {(triggerSubmit) => {
+          return (
+            <>
+              <Field
+                top={0}
+                label="Name: "
+                onSubmit={triggerSubmit}
+              />
+              <Field
+                top={1}
+                label="Description: "
+                onSubmit={triggerSubmit}
+              />
+            </>
+          )
+        }}
+      </Form>
+    </Panel>
+  )
+}

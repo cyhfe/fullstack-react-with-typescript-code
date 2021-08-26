@@ -1,0 +1,27 @@
+import { useRef } from "react"
+import { ColumnContainer, ColumnTitle } from "./styles"
+import { useAppState } from "./AppStateContext"
+import { Card } from "./Card"
+import { AddNewItem } from "./AddNewItem"
+import { useItemDrag } from "./utils/useItemDrag"
+
+type ColumnProps = {
+  text: string
+  id: string
+}
+
+export const Column = ({ text, id }: ColumnProps) => {
+  const { draggedItem, getTasksByListId, dispatch } = useAppState()
+  const tasks = getTasksByListId(id)
+  const ref = useRef<HTMLDivElement>(null)
+
+  const { drag } = useItemDrag({ type: "COLUMN", id, text })
+
+  drag(ref)
+
+  return (
+    <ColumnContainer ref={ref}>
+      //... Column layout
+    </ColumnContainer>
+  )
+}

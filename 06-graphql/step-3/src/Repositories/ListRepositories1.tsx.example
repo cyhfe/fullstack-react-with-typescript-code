@@ -1,0 +1,36 @@
+import React, { useRef } from "react"
+import { Panel } from "../Panel"
+import { useEffect } from "react"
+import open from "open"
+import { gql } from "apollo-boost"
+import { useQuery } from "react-apollo-hooks"
+import { List } from "../List"
+import { listRepositories } from "./types/listRepositories"
+
+const LIST_REPOSITORIES = gql`
+  query listRepositories {
+    viewer {
+      repositories(first: 100) {
+        nodes {
+          name
+          url
+        }
+      }
+    }
+  }
+`
+export const ListRepositories = () => {
+  const { loading, error, data } = useQuery<listRepositories>(LIST_REPOSITORIES, {
+    notifyOnNetworkStatusChange: true,
+    pollInterval: 0,
+    fetchPolicy: "no-cache"
+  })
+
+  if(loading){
+    return <>Loading...</>
+  }
+
+  return (
+    JSON.stringify(data)
+  )
+}

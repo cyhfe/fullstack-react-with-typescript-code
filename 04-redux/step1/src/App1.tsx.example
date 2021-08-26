@@ -1,0 +1,25 @@
+import React, { useRef, useEffect } from "react"
+import { useDispatch, useSelector } from "react-redux"
+import { beginStroke, endStroke, updateStroke } from "./actions"
+import { RootState } from "./types"
+import { drawStroke, clearCanvas, setCanvasSize } from "./canvasUtils"
+
+function App() {
+  const canvasRef = useRef<HTMLCanvasElement>(null)
+
+  const startDrawing = () => { }
+  const endDrawing = () => { }
+  const draw = () => { }
+
+  return (
+    <canvas
+      onMouseDown={startDrawing}
+      onMouseUp={endDrawing}
+      onMouseOut={endDrawing}
+      onMouseMove={draw}
+      ref={canvasRef}
+    />
+  )
+}
+
+export default App

@@ -1,0 +1,21 @@
+import React from "react"
+import { Route, Switch, useRouteMatch } from "react-router"
+
+const RepositoriesMain = () => <>Repositories Main</>
+const NewRepository = () => <>New Repository</>
+const ListRepositories = () => <>List Repositories</>
+
+export const Repositories = () => {
+  const match = useRouteMatch()
+
+  return (
+    <Switch>
+      <Route exact path={match.path} component={RepositoriesMain} />
+      <Route path={`${match.path}/new`} component={NewRepository} />
+      <Route
+        path={`${match.path}/list`}
+        component={ListRepositories}
+      />
+    </Switch>
+  )
+}
